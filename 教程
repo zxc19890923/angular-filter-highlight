@@ -1,0 +1,23 @@
+1、 引入依赖文件
+
+<script src="//cdn.bootcss.com/angular-sanitize/1.6.3/angular-sanitize.js"></script>
+2、配置module
+
+var app = angular.module('app', [
+    'ngSanitize'
+])
+3、自定义过滤
+
+.filter("color", function ($sce) {
+        return function (text, search) {
+            console.log(text);
+            console.log(search);
+            var html = text.replace(search, "<span style='color: red'>" + search + "</span>");
+            var data = $sce.trustAsHtml(html);
+            console.log(data);
+            return data;
+        };
+    });
+4、模板中使用 ng-bind-html
+
+<p ng-bind-html="$ctrl.name | color: 'zxc'"></p>
